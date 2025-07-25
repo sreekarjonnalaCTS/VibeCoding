@@ -124,14 +124,19 @@ function App() {
 
   // Report view
   if (loggedIn && currentQueue >= QUESTIONS.length) {
+    const allGood = responses.every((resp, idx) => resp === QUESTIONS[idx].answers[0]);
     return (
       <div className="container">
-        <h2>Report</h2>
-        <ul>
-          {QUESTIONS.map((q, i) => (
-            <li key={i}><strong>{q.icon} {q.question}</strong>: {responses[i]}</li>
-          ))}
-        </ul>
+        {allGood ? (
+          <>
+            <h2 style={{color: 'green'}}>You are good to go! :)</h2>
+          </>
+        ) : (
+          <>
+            <h2 style={{color: 'red'}}>Mental health Matters!</h2>
+            <p>Please consider seeking help or talking to someone you trust.</p>
+          </>
+        )}
         <button onClick={handleLogout}>Logout</button>
       </div>
     );
